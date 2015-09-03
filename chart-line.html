@@ -23,6 +23,7 @@ Often, it is used to show trend data, and the comparison of two data sets.
 <dom-module id="chart-line">
   <template>
     <canvas id="canvas"></canvas>
+    <div id="legend" class="chart-legend"></div>
   </template>
   <script>
     Polymer({
@@ -48,6 +49,12 @@ Often, it is used to show trend data, and the comparison of two data sets.
             return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
           }
         },
+        series: {
+          type: Array,
+          value: function () {
+            return [];
+          }
+        },
         options: {
           type: Object,
           value: function () {
@@ -65,7 +72,7 @@ Often, it is used to show trend data, and the comparison of two data sets.
         }
       },
       observers: [
-        'updateChart(values, labels, colors, options)',
+        'updateChart(values, labels, colors, options, series)',
         'resize(width, height)'
       ],
       attached: function() {
@@ -91,13 +98,15 @@ Often, it is used to show trend data, and the comparison of two data sets.
               strokeColor: 'rgba(' + this.colors[i] + ',1)',
               pointColor: 'rgba(' + this.colors[i] + ',1)',
               pointStrokeColor: '#fff',
-              data: this.values[i]
+              data: this.values[i],
+              label: this.series[i]
             };
           }, this);
 
           this.data = { labels: this.labels, datasets: this.datasets };
           this.ctx = this.$.canvas.getContext('2d');
           this.chart = new Chart(this.ctx).Line(this.data, this.options);
+          this.$.legend.innerHTML = this.chart.generateLegend();
         }, null, 0);
       }
     });

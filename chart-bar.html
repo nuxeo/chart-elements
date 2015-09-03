@@ -22,6 +22,7 @@ It is sometimes used to show trend data, and the comparison of multiple data set
 <dom-module id="chart-bar">
   <template>
     <canvas id="canvas"></canvas>
+    <div id="legend" class="chart-legend"></div>
   </template>
   <script>
     Polymer({
@@ -47,6 +48,12 @@ It is sometimes used to show trend data, and the comparison of multiple data set
             return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
           }
         },
+        series: {
+          type: Array,
+          value: function () {
+            return [];
+          }
+        },
         options: {
           type: Object,
           value: function () {
@@ -64,7 +71,7 @@ It is sometimes used to show trend data, and the comparison of multiple data set
         }
       },
       observers: [
-        'updateChart(values, labels, colors, options)',
+        'updateChart(values, labels, colors, options, series)',
         'resize(width, height)'
       ],
       attached: function() {
@@ -88,7 +95,8 @@ It is sometimes used to show trend data, and the comparison of multiple data set
             return {
               fillColor: 'rgba(' + this.colors[i] + ',0.5)',
               strokeColor: 'rgba(' + this.colors[i] + ',1)',
-              data: this.values[i]
+              data: this.values[i],
+              label: this.series[i]
             };
           }, this);
           this.data = {
@@ -96,7 +104,12 @@ It is sometimes used to show trend data, and the comparison of multiple data set
             datasets: this.datasets
           };
           this.ctx = this.$.canvas.getContext('2d');
-          this.chart = new Chart(this.ctx).Bar(this.data, this.options);
+          if (this.options.horizontal) {
+            this.chart = new Chart(this.ctx).HorizontalBar(this.data, this.options);
+          } else {
+            this.chart = new Chart(this.ctx).Bar(this.data, this.options);
+          }
+          this.$.legend.innerHTML = this.chart.generateLegend();
         }, null, 0);
       }
     });
