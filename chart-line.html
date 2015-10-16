@@ -106,7 +106,9 @@ Often, it is used to show trend data, and the comparison of two data sets.
           this.data = { labels: this.labels, datasets: this.datasets };
           this.ctx = this.$.canvas.getContext('2d');
           this.chart = new Chart(this.ctx).Line(this.data, this.options);
-          this.$.legend.innerHTML = this.chart.generateLegend();
+          if (this.datasets.length > 1) {
+            this.$.legend.innerHTML = this.chart.generateLegend();
+          }
         }, null, 0);
       }
     });

@@ -109,7 +109,9 @@ It is sometimes used to show trend data, and the comparison of multiple data set
           } else {
             this.chart = new Chart(this.ctx).Bar(this.data, this.options);
           }
-          this.$.legend.innerHTML = this.chart.generateLegend();
+          if (this.datasets.length > 1) {
+            this.$.legend.innerHTML = this.chart.generateLegend();
+          }
         }, null, 0);
       }
     });
