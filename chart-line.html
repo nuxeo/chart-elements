@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="chart-js-import.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
 A line chart is a way of plotting data points on a line.
@@ -28,6 +29,8 @@ Often, it is used to show trend data, and the comparison of two data sets.
   <script>
     Polymer({
       is: 'chart-line',
+      behaviors: [Polymer.IronResizableBehavior],
+      listeners: {'iron-resize': 'resize'},
       properties: {
         colors: {
           type: Array,

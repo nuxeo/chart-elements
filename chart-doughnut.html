@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="chart-js-import.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
 Pie and doughnut charts are probably the most commonly used chart there are. They are divided into segments, the arc of each segment shows a the proportional value of each piece of data.
@@ -26,6 +27,8 @@ They are also registered under two aliases in the Chart core. Other than their d
   <script>
     Polymer({
       is: 'chart-doughnut',
+      behaviors: [Polymer.IronResizableBehavior],
+      listeners: {'iron-resize': 'resize'},
       properties: {
         colors: {
           type: Array,

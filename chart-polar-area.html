@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="chart-js-import.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
 Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.
@@ -22,6 +23,8 @@ This type of chart is often useful when we want to show a comparison data simila
   <script>
     Polymer({
       is: 'chart-polar-area',
+      behaviors: [Polymer.IronResizableBehavior],
+      listeners: {'iron-resize': 'resize'},
       properties: {
         colors: {
           type: Array,

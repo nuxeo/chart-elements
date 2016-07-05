@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="chart-js-import.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
 A bar chart is a way of showing data as bars.
@@ -27,6 +28,8 @@ It is sometimes used to show trend data, and the comparison of multiple data set
   <script>
     Polymer({
       is: 'chart-bar',
+      behaviors: [Polymer.IronResizableBehavior],
+      listeners: {'iron-resize': 'resize'},
       properties: {
         colors: {
           type: Array,
