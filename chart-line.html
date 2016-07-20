@@ -76,6 +76,33 @@ Often, it is used to show trend data, and the comparison of two data sets.
 
       ready: function() {
         this._setType('line');
+      },
+
+      _propertiesChanged: function() {
+        this.data = {
+          labels: this.labels,
+          datasets: this.values.map(function (val, i) {
+            return {
+              data: this.values[i],
+              label: this.series[i],
+              fill: false,
+              lineTension: 0,
+              fillColor: this.colors[i],
+              strokeColor: this.colors[i],
+              pointColor: this.colors[i],
+              borderWidth: 2,
+              pointHitRadius: 20,
+              pointRadius: 4,
+              pointHoverRadius: 4,
+              pointBorderWidth: 1,
+              pointHoverBorderWidth: 1,
+              pointBorderColor: '#fff',
+              pointStrokeColor: this.colors[i],
+              pointBackgroundColor: this.colors[i],
+              borderColor: this.colors[i]
+            };
+          }, this)
+        };
       }
 
     });

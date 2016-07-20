@@ -68,6 +68,22 @@ It is sometimes used to show trend data, and the comparison of multiple data set
 
       ready: function() {
         this._setType('bar');
+      },
+
+      _propertiesChanged: function() {
+        this.data = {
+          labels: this.labels,
+          datasets: this.values.map(function (val, i) {
+            return {
+              data: this.values[i],
+              label: this.series[i],
+              fill: true,
+              backgroundColor: this.colors[i],
+              borderColor: this.colors[i],
+              borderWidth: 1
+            };
+          }, this)
+        };
       }
 
     });
