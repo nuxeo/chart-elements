@@ -63,6 +63,20 @@ It is sometimes used to show trend data, and the comparison of multiple data set
         this._setType('bar');
       }
 
+      _updateData() {
+        this.data = {
+          labels: this.labels,
+          datasets: this.values.map((val, i) => ({
+            data: this.values[i],
+            label: this.series[i],
+            fill: true,
+            backgroundColor: this.colors[i],
+            borderColor: this.colors[i],
+            borderWidth: 1
+          }))
+        };
+      }
+
     };
 
     window.customElements.define(ChartBar.is, ChartBar);

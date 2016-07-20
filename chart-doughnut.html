@@ -70,6 +70,17 @@ They are also registered under two aliases in the Chart core. Other than their d
         this._setType('doughnut');
       }
 
+      _updateData() {
+        this.data = {
+          labels: this.labels,
+          datasets: [{
+            data: (this.values && this.values.length && Array.isArray(this.values[0])) ? this.values[0] : this.values,
+            backgroundColor: this.colors,
+            hoverBackgroundColor: this.colors
+          }]
+        };
+      }
+
     };
 
     window.customElements.define(ChartDoughnut.is, ChartDoughnut);
