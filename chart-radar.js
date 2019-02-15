@@ -48,14 +48,14 @@ import '@polymer/polymer/polymer-legacy.js';
 
 import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 import './chart-js-import.js';
-import './chart-property-behavior.js';
-import './context-behavior.js';
-import './resize-behavior.js';
+import { ChartPropertyBehavior } from './chart-property-behavior.js';
+import { ContextBehavior } from './context-behavior.js';
+import { ResizeBehavior } from './resize-behavior.js';
 import './chart-styles.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-class ChartRadar extends ChartBehaviors.ResizeBehavior(ChartBehaviors.ContextBehavior(ChartBehaviors.ChartPropertyBehavior(mixinBehaviors([IronResizableBehavior], PolymerElement)))) {
+class ChartRadar extends ResizeBehavior(ContextBehavior(ChartPropertyBehavior(mixinBehaviors([IronResizableBehavior], PolymerElement)))) {
   static get template() {
     return html`
     <style include="chart-styles"></style>

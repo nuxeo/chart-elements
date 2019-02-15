@@ -1,7 +1,6 @@
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
-var ChartBehaviors = ChartBehaviors || {};
 /** @polymerBehavior */
-ChartBehaviors.ResizeBehavior = dedupingMixin(function(superClass) {
+export const ResizeBehavior = dedupingMixin(function(superClass) {
   return class extends superClass {
 
     connectedCallback() {
