@@ -70,7 +70,7 @@ class ChartPie extends ResizeBehavior(ContextBehavior(ChartPropertyBehavior(mixi
 
   ready() {
     super.ready();
-    this.options = {
+    this.options = Object.assign({
       legend: {
         display: true,
         position: 'bottom',
@@ -79,7 +79,7 @@ class ChartPie extends ResizeBehavior(ContextBehavior(ChartPropertyBehavior(mixi
         }
       },
       animation: false
-    };
+    }, this.options);
     this._setType('pie');
   }
 
