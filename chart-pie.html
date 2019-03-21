@@ -67,7 +67,7 @@ They are also registered under two aliases in the Chart core. Other than their d
 
       ready() {
         super.ready();
-        this.options = {
+        this.options = Object.assign({
           legend: {
             display: true,
             position: 'bottom',
@@ -76,7 +76,7 @@ They are also registered under two aliases in the Chart core. Other than their d
             }
           },
           animation: false
-        };
+        }, this.options);
         this._setType('pie');
       }
 
