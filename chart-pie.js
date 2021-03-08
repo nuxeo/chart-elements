@@ -78,7 +78,11 @@ class ChartPie extends ResizeBehavior(ContextBehavior(ChartPropertyBehavior(mixi
           boxWidth: 12
         }
       },
-      animation: false
+      animation: {
+        duration: 100,
+        easing: "easeOutQuart",
+        onComplete: this._drawValuesInPie
+      }
     }, this.options);
     this._setType('pie');
   }
@@ -93,6 +97,36 @@ class ChartPie extends ResizeBehavior(ContextBehavior(ChartPropertyBehavior(mixi
       }]
     };
   }
+
+  // Source: https://stackoverflow.com/questions/33363373/how-to-display-pie-chart-data-values-of-each-slice-in-chart-js
+  _drawValuesInPie() {
+    const {ctx} = this.chart;
+    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillStyle = '#fff';
+
+    this.data.datasets.forEach((dataset) => {
+      for (let i = 0; i < dataset.data.length; i++) {
+        const dataSetMeta = dataset._meta;
+        const dataSetMetaFirstProp = dataSetMeta[0] || dataSetMeta[Object.keys(dataSetMeta)[0]];
+
+        const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+        const mid_radius = model.innerRadius + (model.outerRadius - model.innerRadius) / 2;
+        const mid_angle = model.startAngle + (model.endAngle - model.startAngle) / 2;
+        const total = dataset._meta[Object.keys(dataset._meta)[0]].total;
+        const percent = Math.round(dataset.data[i]/ total * 100);
+        const percentStr = String(percent) + "%";
+        const x = mid_radius * Math.cos(mid_angle);
+        const y = mid_radius * Math.sin(mid_angle);
+       
+        if(dataset.data[i] !== 0 && dataSetMetaFirstProp && !dataSetMetaFirstProp.data[i].hidden && percent > 5) {
+          ctx.fillText(dataset.data[i], model.x + x, model.y + y);
+        }
+      }
+    });               
+  }
+
 }
 
 window.customElements.define(ChartPie.is, ChartPie);
